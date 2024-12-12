@@ -69,7 +69,7 @@ hosts:
   configuration:
     # -- baseHost configures the host for all services.
     # Depending on hosts.usePaths the services will be prepended as a subdomain or appended as a path
-    baseHost: 192.168.39.173.nip.io
+    baseHost: 72.146.61.36.nip.io
     # -- afix of the REST service
     service: servicex
     # -- afix of the landing page
@@ -85,7 +85,8 @@ hosts:
   # helm upgrade will not properly update this at the moment.
   # These are required to configure TLS (if enabled via ingress.tls == true)
   # I.e. custom certificates or a cert-manager provider that can handle wildcard certificates need to be configured.
-  allWildcardInstances: []
+  allWildcardInstances: 
+  - "*.webview.instances"
 
 # -- Values related to the landing page
 # @default -- (see details below)
@@ -105,7 +106,7 @@ landingPage:
 
   # -- If set to true no persisted storage is used when creating sessions on the landing page.
   # Set to false if you want to use persisted storage.
-  ephemeralStorage: true
+  ephemeralStorage: false
 
   # -- The page may show these additional apps in a drop down. This is a map.
   # The key maps to the app definition name
@@ -156,16 +157,16 @@ landingPage:
 # @default -- (see details below)
 keycloak:
   # -- Whether keycloak authentication shall be used
-  enable: false
+  enable: true
 
   # -- Key cloak auth URL. Only has to be specified when enable: true
-  authUrl: "https://keycloak.url/auth/"
+  authUrl: "https://keycloak.72.146.61.36.nip.io/auth/"
 
   # -- The Keycloak Realm. Only has to be specified when enable: true
-  realm: "TheiaCloud"
+  realm: "TheiaCloudIDE"
 
   # -- The client-id. Only has to be specified when enable: true
-  clientId: "theia-cloud"
+  clientId: "theia-cloud-ide"
 
   # -- The oaid client secret. In case you configure your keycloak client as confidential,
   # then you may specifiy the secret here.
@@ -225,7 +226,7 @@ operator:
   # -- The amount of requested storage for each persistent volume claim (PVC) for workspaces.
   # This is directly passed to created PVCs and must be a valid Kubernetes quantity.
   # See https://kubernetes.io/docs/reference/kubernetes-api/common-definitions/quantity/
-  requestedStorage: "250Mi"
+  requestedStorage: "5Gi"
 
   # -- Number of operator instances to create
   replicas: 1
